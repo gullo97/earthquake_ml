@@ -1,1 +1,7 @@
 /aquila.xls
+/Autoencoder.py
+/model_narrow.pkl
+/model_narrow_condensed.pkl
+/model_15x8_1000_epochs.pkl
+/model_2x.pkl
+/signature_condensed_dataframe.csv
