@@ -633,19 +633,14 @@ risk_map = plot_risk_map_unnormalized(model, train_loader, grid_size=0.01)
 ![png](notebook_files/notebook_27_1.png)
     
 
+The plot shows the epicenter of the main event in the 2009 earthquake series as a red cross, while the dots represent the recorded sites in the testing dataset. The dots are color-coded based on their actual damage in the dataset, which ranges from 0 to 3, specifically damage to the staircase structure. However, looking at the damages recorded in the testing dataset alone is insufficient for identifying the highest risk zone. This is because the damage of each building is linked not only to its coordinates but also to its individual building characteristics, such as construction quality or number of floors.
 
-In this plot, the epicenter of the main event in the series of earthquakes of 2009 is shown as a red cross. The dots represent the sites recorded in the testing dataset and are colored according to their actual damage in the dataset (in this case, damage to staircase structure), which ranges from 0 to 3.
+To ensure that the model is deriving useful insights from the data, it is crucial to prove that it can separate the spatial dependency of damage from all other building properties. To achieve this, we created dummy buildings with the same characteristics as those in the dataset, but with different coordinates. These buildings were placed on a grid centered around the epicenter, and the vector representation of each dummy building was provided as input to the trained model. The model predicted the damage level for each building if it were located at the chosen point, and the expected damage for each point on the grid was calculated and averaged.
 
-Looking just at the damages recorded in the testing dataset (which can be considered representative of the whole dataset), it would be hard to identify the highest risk zone. This is beacause the damage of each building doesn't only depend on its coordinates, but is also linked to the 'signature' of each building, that is, the properties of buildings such as construction quality or number of floors.
+By averaging over many different buildings for each point, the aim is to cancel out the dependence on all other variables, highlighting only the spatial dependence. This also allowed for the interpolation of a 'continuous' risk map, even for points where no buildings were present.
 
-To try and gauge if the model is actually deducing useful insights in the data, it is necessary to prove that the it is able to separate the spatial dependency of damage from all other properties.
+We can clearly see that the model is able to identify the zone around the epicenter as the highest risk zone. This is despite the fact that the model was not given the coordinates of the epicenter as input. Thus we conclude that our approach is able to separate the coordinate dipendency from the building signature dependency as the highest risk zone is centered around the actual epicenter and is scarcely biased towards the highest population zone.
 
-This was achieved by creating dummy buildings that have the same characteristics (and therefore the same 'one-hot' encoding) as buildings in the dataset, but with their coordinates (longitude and latitude) changed, imagining them placed at every point on a grid centered around the epicenter. The vector representation of these dummy buildings is then provided as input to the trained model, which predicts the damage level for each building if it were located at the chosen point. For each point on the grid, the expected damage for each building is calculated, and the average is then computed.
-
-This is done to separate the dependence of the degree of damage on individual building characteristics in order to study only the spatial dependence. In fact, a priori, it would be difficult to say whether an area has experienced greater damage due to an inherent danger of the location or due to lower quality construction in a neighborhood. By averaging over many different buildings for each point, the idea is that the dependence on all other variables cancels out, highlighting only the spatial dependence.
-
-In doing so, it is also possible to interpolate a 'continuous' risk map, even for points where there were no buildings present.
-
-We can clearly see that the model is able to identify the zone around the epicenter as the highest risk zone. This is despite the fact that the model was not given the coordinates of the epicenter as input. Thus we conclude that the model is able to separate the coordinate dipendency from the building signature dependency as the highest risk zone is centered around the actual epicenter.
+Once ensthablished this capability, the same procedure can be applied to all building properties in the same way we did for its coordinates, by choosing a property and averaging over dummy buildings. (Coming soon) 
 
 
