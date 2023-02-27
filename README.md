@@ -29,15 +29,6 @@ Here we report a partial training log for a fully connected neural network.
 
 
 
-    
-![png](notebook_files/notebook_22_4.png)
-    
-
-
-
-    
-![png](notebook_files/notebook_22_5.png)
-    
 
     Test Score:
                    precision    recall  f1-score   support
