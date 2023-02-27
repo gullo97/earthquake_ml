@@ -162,8 +162,6 @@ Once ensthablished this capability, the same procedure can be applied to all bui
 
 
     
-![png](notebook_files/notebook_32_10.png)
-    
 
 
 
